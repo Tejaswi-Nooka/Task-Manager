@@ -2,16 +2,19 @@ services:
   # Frontend Static Site
   - type: web
     name: task-manager-frontend
+    env: static
     buildCommand: npm install && npm run build
     staticPublishPath: ./build
     envVars:
+      - key: NODE_ENV
+        value: production
       - key: REACT_APP_API_URL
-        value: https://task-manager-backend.onrender.com
+        value: https://task-manager-backend-api.onrender.com
 
   # Backend API Service
   - type: web
-    name: task-manager-backend
-    runtime: python
+    name: task-manager-backend-api
+    env: python
     buildCommand: pip install -r requirements.txt
     startCommand: cd backend/task-manager-api && uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
