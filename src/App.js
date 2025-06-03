@@ -1,23 +1,41 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import Register from './components/Register';
+import Login from './components/Login';
+import TaskList from './components/TaskList';
+import CreateTask from './components/CreateTask';
 import './App.css';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+  };
+
+  if (!isLoggedIn) {
+    return (
+      <div className="App">
+        <h2>Task Manager</h2>
+        <div className="auth-container">
+          <div className="auth-form">
+            <Register />
+          </div>
+          <div className="auth-form">
+            <Login onLogin={() => setIsLoggedIn(true)} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button className="logout" onClick={logout}>Logout</button>
+      <div className="create-task-form">
+        <CreateTask onTaskCreated={() => window.location.reload()} />
+      </div>
+      <TaskList />
     </div>
   );
 }
