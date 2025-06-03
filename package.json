@@ -24,7 +24,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -46,7 +48,9 @@
   },
   "proxy": "https://task-manager-api-f7wx.onrender.com",
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "png-to-ico": "^2.1.8",
     "sharp": "^0.34.2"
-  }
+  },
+  "homepage": "https://tejaswi-nooka.github.io/Task-Manager"
 }
